@@ -127,7 +127,7 @@ public class ButtonListenerTest {
         listener.updateState(false, 200);
         assertEquals("click", ButtonListener.SINGLE_CLICK, myButtonEventHandler.event);
         listener.updateState(true, 201);
-        assertEquals("press", ButtonListener.SINGLE_CLICK, myButtonEventHandler.event);
+        assertEquals("press", ButtonListener.PRESS, myButtonEventHandler.event);
         listener.updateState(false, 202);
         assertEquals("double click", ButtonListener.DOUBLE_CLICK, myButtonEventHandler.event);
     }
@@ -165,8 +165,13 @@ public class ButtonListenerTest {
         listener.updateState(false, 504);
         assertTrue(myButtonEventHandler.event==ButtonListener.NEUTRAL);
         assertTrue(listener.getState()==ButtonListener.NEUTRAL);
-
-
+        listener.updateState(true, 505);
+        assertTrue(myButtonEventHandler.event==ButtonListener.PRESS);
+        assertTrue(listener.getState()==ButtonListener.PRESS);
+        listener.updateState(false, 506);
+        assertTrue(myButtonEventHandler.event==ButtonListener.SINGLE_CLICK);
+        assertTrue(listener.getState()==ButtonListener.SINGLE_CLICK);
+        listener.updateState(true, 507);
     }
     
     private static class MyButtonEventHandler implements ButtonEventHandler {

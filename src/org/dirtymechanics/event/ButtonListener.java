@@ -67,9 +67,13 @@ public class ButtonListener {
 
     private void updatePress(boolean buttonState) {
         //Don't need a timer for the press time
-        if (state != NEUTRAL) return;  //Can only go to press from neutral
-        if (buttonState) {
-            state = PRESS;
+        if (state == NEUTRAL || state == SINGLE_CLICK) {
+            //If we're at single click it means the user has let go of the 
+            //  button so we're on our way again.  If the button state is
+            //  on then it's a new press
+            if (buttonState) {
+                state = PRESS;
+            }
         }
     }
 
@@ -106,6 +110,9 @@ public class ButtonListener {
                 //  second click so that time has to be 0 too.
                 state = SINGLE_CLICK;
                 resetTimers();
+                //Make it so that the time since last click kicks off without delay
+                //  so that in the next cycle double click knows a click happened
+                timeSinceLastClick = 1;
             }
         }
     }
