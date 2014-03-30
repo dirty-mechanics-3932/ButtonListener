@@ -67,7 +67,7 @@ public class ButtonListener {
 
     private void updatePress(boolean buttonState) {
         //Don't need a timer for the press time
-        if (state == NEUTRAL || state == SINGLE_CLICK) {
+        if (state == NEUTRAL || state == SINGLE_CLICK || state == DOUBLE_CLICK) {
             //If we're at single click it means the user has let go of the 
             //  button so we're on our way again.  If the button state is
             //  on then it's a new press

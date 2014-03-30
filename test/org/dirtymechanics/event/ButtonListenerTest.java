@@ -133,6 +133,29 @@ public class ButtonListenerTest {
     }
     
     @Test
+    public void trippleClickRegistersAsDoubleClickThenSingleClick() {
+        ButtonListener listener = new ButtonListener();
+        final MyButtonEventHandler myButtonEventHandler = new MyButtonEventHandler();
+        listener.addListener(myButtonEventHandler);
+        listener.updateState(true, 0);
+        assertEquals(ButtonListener.PRESS, myButtonEventHandler.event);
+        listener.updateState(false, 200);
+        assertEquals(ButtonListener.SINGLE_CLICK, myButtonEventHandler.event);
+        listener.updateState(true, 201);
+        assertEquals(ButtonListener.PRESS, myButtonEventHandler.event);
+        listener.updateState(false, 202);
+        assertEquals(ButtonListener.DOUBLE_CLICK, myButtonEventHandler.event);
+        listener.updateState(true, 203);
+        assertEquals(ButtonListener.PRESS, myButtonEventHandler.event);
+        listener.updateState(false, 204);
+        assertEquals(ButtonListener.SINGLE_CLICK, myButtonEventHandler.event);
+        listener.updateState(true, 205);
+        assertEquals(ButtonListener.PRESS, myButtonEventHandler.event);
+        listener.updateState(false, 206);
+        assertEquals(ButtonListener.DOUBLE_CLICK, myButtonEventHandler.event);
+    }
+    
+    @Test
     public void holdStateRetainedInManyCycles() {
         final MyButtonEventHandler myButtonEventHandler = new MyButtonEventHandler();
         ButtonListener listener = new ButtonListener();
